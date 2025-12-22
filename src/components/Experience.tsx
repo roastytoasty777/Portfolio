@@ -16,32 +16,6 @@ const Experience = () => {
         "Create structured learning materials and lessons",
       ],
     },
-    {
-      title: "Web Developer",
-      subtitle: "NeoFit ISITCOM",
-      location: "Sousse",
-      period: "Feb 2025 – April 2025",
-      color: "secondary",
-      responsibilities: [
-        "Developed front-end and back-end of fitness tracking web app",
-        "Designed and modeled the database schema",
-        "Ensured data integrity and smooth data flow",
-        "Collaborated with team during various development stages",
-      ],
-    },
-    {
-      title: "Graphic Designer",
-      subtitle: "Rolex Yacht-Master Promotional Design",
-      location: "ISITCOM",
-      period: "Nov 2024 – Dec 2024",
-      color: "accent",
-      responsibilities: [
-        "Produced banner + social media promotional designs",
-        "High-fidelity visuals using Adobe Photoshop",
-        "Applied advanced typography and color theory",
-        "Delivered luxury-grade, realistic product presentation",
-      ],
-    },
   ];
 
   return (
@@ -51,7 +25,7 @@ const Experience = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-           <span className="text-gradient">Experience</span> and <span className="text-gradient">Projects</span>
+           <span className="text-gradient">Experience</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
         </div>

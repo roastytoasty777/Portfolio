@@ -4,35 +4,6 @@ import { Button } from "@/components/ui/button";
 const Projects = () => {
   const projects = [
     {
-      title: "NextStep: Full-Stack Learning Roadmap",
-      description:
-        "A structured full-stack application demonstrating the integration of Next.js and Nest.js. Features a progression from basic state management to secure JWT-based authentication and CRUD operations.",
-      technologies: ["Next.js", "Nest.js", "TypeScript", "JWT", "Node.js"],
-      role: "Full Stack Developer",
-      highlights: [
-        "End-to-end API architecture with Nest.js",
-        "Secure JWT (JSON Web Token) authentication flow",
-        "Modular frontend design with Next.js App Router",
-        "Full CRUD implementation for data management",
-      ],
-      color: "primary",
-      image: "/nextStep.jpg",
-    },
-    {
-      title: "Gestion de Films: Film Management System",
-      description: "A comprehensive film management application built with Angular, featuring CRUD operations for movie data management with a clean, responsive interface.",
-      technologies: ["Angular", "TypeScript", "Bootstrap", "JSON Server", "RxJS"],
-      role: "Frontend Developer",
-      highlights: [
-        "Responsive Angular application with Bootstrap styling",
-        "Full CRUD operations for film data management",
-        "JSON Server integration for mock API endpoints",
-        "Modular component architecture with Angular services",
-      ],
-      color: "primary",
-      image: "/gestionFilm.jpg",
-    },
-    {
       title: "NeoFit Fitness Tracking Web Application",
       description:
         "Full-stack fitness tracking application with comprehensive workout and nutrition management. Built with modern web technologies for optimal performance.",
@@ -59,6 +30,38 @@ const Projects = () => {
       ],
       color: "secondary",
       image: "/rolex.jpg",
+    },
+    {
+      title: "NextStep: Full-Stack Learning Roadmap",
+      description:
+        "A structured full-stack application demonstrating the integration of Next.js and Nest.js. Features a progression from basic state management to secure JWT-based authentication and CRUD operations.",
+      technologies: ["Next.js", "Nest.js", "TypeScript", "JWT", "Node.js"],
+      role: "Full Stack Developer",
+      highlights: [
+        "End-to-end API architecture with Nest.js",
+        "Secure JWT (JSON Web Token) authentication flow",
+        "Modular frontend design with Next.js App Router",
+        "Full CRUD implementation for data management",
+      ],
+      color: "primary",
+      image: "/nextStep.jpg",
+      github: "https://github.com/roastytoasty777/NextStep",
+    },
+    {
+      title: "Gestion de Films: Film Management System",
+      description:
+        "A comprehensive film management application built with Angular, featuring CRUD operations for movie data management with a clean, responsive interface.",
+      technologies: ["Angular", "TypeScript", "Bootstrap", "JSON Server", "RxJS"],
+      role: "Frontend Developer",
+      highlights: [
+        "Responsive Angular application with Bootstrap styling",
+        "Full CRUD operations for film data management",
+        "JSON Server integration for mock API endpoints",
+        "Modular component architecture with Angular services",
+      ],
+      color: "secondary",
+      image: "/gestionFilm.jpg",
+      github: "https://github.com/roastytoasty777/GestionFilms",
     },
     {
       title: "More Projects",
@@ -103,7 +106,8 @@ const Projects = () => {
               )}
 
               {/* CARD CONTENT */}
-              {index !== 2 ? (
+              {/* CARD CONTENT */}
+              {project.description ? (
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
 
@@ -153,17 +157,34 @@ const Projects = () => {
                       View Project
                     </Button>
 
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
-                    >
-                      <Github className="h-4 w-4" />
-                    </Button>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
+                        >
+                          <Github className="h-4 w-4" />
+                        </Button>
+                      </a>
+                    )}
+                    {!project.github && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
+                      >
+                        <Github className="h-4 w-4" />
+                      </Button>
+                    )}
                   </div>
                 </div>
               ) : (
-                /* REDESIGNED AND CENTERED THIRD CARD */
+                /* REDESIGNED AND CENTERED LAST CARD */
                 <div className="flex flex-col items-center justify-center text-center py-20 h-full">
                   <Github className="h-14 w-14 text-accent mb-4" />
 
