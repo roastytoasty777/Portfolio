@@ -2,81 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 220 25% 8%;
-    --foreground: 210 40% 98%;
+    --background: 240 12% 4%;
+    --foreground: 40 25% 96%;
 
-    --card: 220 20% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 7%;
+    --card-foreground: 40 25% 96%;
 
-    --popover: 220 20% 10%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 7%;
+    --popover-foreground: 40 25% 96%;
 
-    --primary: 195 100% 50%;
-    --primary-foreground: 220 25% 8%;
+    --primary: 22 100% 58%;
+    --primary-foreground: 240 12% 4%;
 
-    --secondary: 280 70% 60%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 190 90% 55%;
+    --secondary-foreground: 240 12% 4%;
 
-    --accent: 25 95% 60%;
-    --accent-foreground: 220 25% 8%;
+    --accent: 38 100% 62%;
+    --accent-foreground: 240 12% 4%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 240 8% 14%;
+    --muted-foreground: 240 6% 66%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 40 25% 96%;
 
-    --border: 220 15% 25%;
-    --input: 220 15% 20%;
-    --ring: 195 100% 50%;
+    --border: 240 8% 16%;
+    --input: 240 8% 14%;
+    --ring: 22 100% 58%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;
 
-    /* Custom portfolio colors */
-    --gradient-primary: linear-gradient(135deg, hsl(195, 100%, 50%), hsl(280, 70%, 60%));
-    --gradient-secondary: linear-gradient(135deg, hsl(280, 70%, 60%), hsl(320, 90%, 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(25, 95%, 60%), hsl(45, 100%, 60%));
-    
-    --glow-primary: 0 0 40px hsl(195 100% 50% / 0.3);
-    --glow-secondary: 0 0 40px hsl(280 70% 60% / 0.3);
-    
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --gradient-primary: linear-gradient(120deg, hsl(22 100% 58%), hsl(38 100% 62%));
+    --glow-primary: 0 0 40px hsl(22 100% 58% / 0.25);
+    --glow-secondary: 0 0 40px hsl(190 90% 55% / 0.25);
   }
 
   .dark {
-    --background: 220 25% 8%;
-    --foreground: 210 40% 98%;
-
-    --card: 220 20% 12%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 220 20% 10%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 195 100% 50%;
-    --primary-foreground: 220 25% 8%;
-
-    --secondary: 280 70% 60%;
-    --secondary-foreground: 210 40% 98%;
-
-    --accent: 25 95% 60%;
-    --accent-foreground: 220 25% 8%;
-
-    --muted: 220 15% 20%;
-    --muted-foreground: 215 20% 65%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 220 15% 25%;
-    --input: 220 15% 20%;
-    --ring: 195 100% 50%;
+    --background: 240 12% 4%;
+    --foreground: 40 25% 96%;
   }
 }
 
@@ -85,17 +50,34 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    font-family: 'Poppins', sans-serif;
-  }
-
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Instrument Sans", system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
 }
 
 @layer utilities {
+  .font-display {
+    font-family: "Syne", "Instrument Sans", sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  .font-mono-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+
   .text-gradient {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
@@ -103,73 +85,68 @@ All colors MUST be HSL.
     background-clip: text;
   }
 
+  .text-outline {
+    -webkit-text-stroke: 1.5px hsl(var(--foreground));
+    -webkit-text-fill-color: transparent;
+  }
+
   .glass-card {
-    @apply bg-card/50 backdrop-blur-lg border border-border/50;
+    @apply bg-card/60 backdrop-blur-xl border border-border/60;
   }
 
   .glow-primary {
     box-shadow: var(--glow-primary);
   }
 
-  .glow-secondary {
-    box-shadow: var(--glow-secondary);
+  .animate-marquee {
+    animation: marquee 34s linear infinite;
   }
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  .animate-slide-in-left {
-    animation: slideInLeft 0.6s ease-out;
-  }
-
-  .animate-slide-in-right {
-    animation: slideInRight 0.6s ease-out;
-  }
-
-  @keyframes slideInLeft {
+  @keyframes marquee {
     from {
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-    to {
-      opacity: 1;
       transform: translateX(0);
     }
+    to {
+      transform: translateX(-50%);
+    }
   }
 
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), hsl(var(--primary) / 0.16), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .spotlight:hover::before {
+    opacity: 1;
   }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.6s ease-out both;
   }
 
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(24px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-fade-in-up {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }

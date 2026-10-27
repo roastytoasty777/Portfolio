@@ -1,127 +1,85 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowDown, Download, Mail, Github, Linkedin } from "lucide-react";
+import { lazy, Suspense } from "react";
+import { motion } from "framer-motion";
+import { ArrowDown, Download } from "lucide-react";
+
+const Scene3D = lazy(() => import("./Scene3D"));
+
+const Word = ({ children, delay, className = "" }: { children: string; delay: number; className?: string }) => (
+  <span className="block overflow-hidden pb-[0.08em]">
+    <motion.span
+      className={`block ${className}`}
+      initial={{ y: "110%" }}
+      animate={{ y: 0 }}
+      transition={{ duration: 1, delay, ease: [0.2, 0.8, 0.2, 1] }}
+    >
+      {children}
+    </motion.span>
+  </span>
+);
 
 const Hero = () => {
-  const [typedText, setTypedText] = useState("");
-  const fullText = "Computer Science Student • Web Developer • Graphic Designer";
-
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      if (index <= fullText.length) {
-        setTypedText(fullText.slice(0, index));
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const reduceMotion =
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
-    >
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "2s" }} />
+    <section id="home" className="relative flex min-h-screen items-end overflow-hidden pb-16 pt-32">
+      <div className="absolute inset-0">
+        <Suspense fallback={null}>
+          <Scene3D reduceMotion={reduceMotion} />
+        </Suspense>
       </div>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
-          {/* Profile Photo Placeholder */}
-          <div className="mb-8 flex justify-center animate-fade-in-up">
-            <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary to-secondary p-1 animate-pulse">
-              <div className="w-full h-full rounded-full bg-card flex items-center justify-center text-6xl font-bold text-gradient">
-                <img
-                  src="/image.png"
-                  alt="Mustapha Sghaier"
-                  className="w-full h-full rounded-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
+      <div className="container relative z-10 mx-auto px-4">
+        <motion.p
+          className="font-mono-label mb-6 inline-flex items-center gap-2 text-muted-foreground"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <span className="h-2 w-2 rounded-full bg-primary" />
+          Open to internships, available now
+        </motion.p>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-4 animate-slide-in-left">
-            Hi, I'm <span className="text-gradient">Mustapha Sghaier</span>
-          </h1>
+        <h1 className="font-display text-[clamp(2.2rem,8.4vw,9rem)] font-extrabold uppercase leading-[0.88]">
+          <Word delay={0.3}>Mustapha</Word>
+          <Word delay={0.45} className="text-gradient">
+            Sghaier
+          </Word>
+        </h1>
 
-          <div className="h-16 mb-8">
-            <p className="text-xl md:text-2xl text-muted-foreground">
-              {typedText}
-              <span className="animate-pulse">|</span>
-            </p>
-          </div>
-
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in-up">
-            Proactive Computer Science student passionate about creating beautiful web experiences
-            and stunning visual designs. Let's build something amazing together!
+        <motion.div
+          className="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <p className="max-w-xl text-lg text-muted-foreground md:text-xl">
+            Full-stack developer in <span className="text-foreground">TypeScript</span> and{" "}
+            <span className="text-foreground">Python</span>, building products end to end and moving into AI
+            engineering.
           </p>
 
-          <div className="flex flex-wrap gap-4 justify-center mb-12 animate-fade-in-up">
-            <Button 
-              size="lg" 
-              className="gradient-hero text-white border-0 hover:scale-105 transition-transform duration-300 glow-primary" asChild
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-transform hover:scale-105"
             >
-              <a href="/cv/Mustapha_Sghaier_CV.pdf" 
+              See my work
+              <ArrowDown className="h-4 w-4" />
+            </a>
+            <a
+              href="/cv/Mustapha_Sghaier_CV.pdf"
               download="Mustapha_Sghaier_CV.pdf"
               target="_blank"
-              rel="noopener noreferrer">
-              <Download className="mr-2 h-5 w-5" />
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-6 py-3 font-medium backdrop-blur-xl transition-colors hover:border-primary"
+            >
+              <Download className="h-4 w-4" />
               Download CV
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={scrollToContact}
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-            >
-              <Mail className="mr-2 h-5 w-5" />
-              Contact Me
-            </Button>
-          </div>
-
-          <div className="flex gap-6 justify-center animate-fade-in-up">
-            <a
-              href="https://www.linkedin.com/in/mustapha-sghaier/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all glow-primary"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
-            <a
-              href="https://github.com/roastytoasty777"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all glow-primary"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-            <a
-              href="mailto:mustapha.sghaier777@gmail.com"
-              className="w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center hover:bg-primary hover:text-primary-foreground hover:scale-110 transition-all glow-primary"
-            >
-              <Mail className="h-5 w-5" />
             </a>
           </div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <ArrowDown className="h-8 w-8 text-primary" />
+        </motion.div>
       </div>
     </section>
   );

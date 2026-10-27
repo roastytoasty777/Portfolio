@@ -1,80 +1,51 @@
-import { GraduationCap, Code, Palette, Zap } from "lucide-react";
+import Reveal from "./Reveal";
 
-const About = () => {
-  const highlights = [
-    {
-      icon: GraduationCap,
-      title: "Computer Science Student",
-      subtitle: "ISITCOM",
-      color: "text-primary",
-    },
-    {
-      icon: Code,
-      title: "Web Developer",
-      subtitle: "Full Stack",
-      color: "text-secondary",
-    },
-    {
-      icon: Palette,
-      title: "Graphic Designer",
-      subtitle: "Adobe Expert",
-      color: "text-accent",
-    },
-    {
-      icon: Zap,
-      title: "Fast Learner",
-      subtitle: "Always Growing",
-      color: "text-primary",
-    },
-  ];
+const stats = [
+  { value: "20+", label: "Backend modules shipped (MetaPro + Wadhah)" },
+  { value: "3", label: "LLM providers integrated" },
+  { value: "3", label: "Languages: FR, EN, AR" },
+];
 
-  return (
-    <section id="about" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            About <span className="text-gradient">Me</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
+const About = () => (
+  <section id="about" className="py-28">
+    <div className="container mx-auto grid items-center gap-14 px-4 lg:grid-cols-[1fr_1.3fr]">
+      <Reveal>
+        <div className="relative mx-auto w-full max-w-sm">
+          <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-primary/40 via-transparent to-secondary/40 blur-2xl" />
+          <img
+            src="/image.jpg"
+            alt="Mustapha Sghaier"
+            className="relative aspect-[4/5] w-full rotate-[-3deg] rounded-[2rem] border border-border object-cover transition-transform duration-500 hover:rotate-0"
+          />
         </div>
+      </Reveal>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="glass-card p-8 md:p-12 rounded-2xl mb-12 animate-fade-in-up">
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Proactive <span className="text-primary font-semibold">Computer Science student</span> skilled in{" "}
-              <span className="text-secondary font-semibold">Web Development</span>,{" "}
-              <span className="text-accent font-semibold">Data Analysis</span>, and{" "}
-              <span className="text-primary font-semibold">Graphic Design</span>. Proven ability to lead and
-              collaborate, demonstrated through executive board experience and service management roles.
-              Seeking a development internship to apply technical expertise and a challenge-oriented
-              mindset to real-world projects.
-            </p>
-          </div>
+      <Reveal delay={0.1}>
+        <p className="font-mono-label mb-3 text-primary">About</p>
+        <h2 className="font-display mb-6 text-4xl font-extrabold md:text-5xl">
+          I build the whole product, from the database to the interface.
+        </h2>
+        <p className="mb-4 text-lg text-muted-foreground">
+          I'm an engineering student at TEK-UP University and a full-stack developer working in TypeScript and
+          Python. During my internship at Duality Agency I built MetaPro, a multi-tenant SaaS with an LLM assistant,
+          and I'm building Wadhah, an ERP for Tunisian SMEs.
+        </p>
+        <p className="mb-10 text-lg text-muted-foreground">
+          I'm now following a Python roadmap toward AI engineering and data science, and I'm looking for a first
+          experience inside a real team.
+        </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {highlights.map((highlight, index) => {
-              const Icon = highlight.icon;
-              return (
-                <div
-                  key={index}
-                  className="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-transform cursor-pointer group animate-fade-in-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-card flex items-center justify-center ${highlight.color} group-hover:glow-primary transition-all`}>
-                    <Icon className="h-8 w-8" />
-                  </div>
-                  <h3 className="font-semibold mb-2">{highlight.title}</h3>
-                  <p className="text-sm text-muted-foreground">{highlight.subtitle}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+        <dl className="grid grid-cols-3 gap-4">
+          {stats.map((s) => (
+            <div key={s.label} className="rounded-2xl border border-border bg-card/60 p-5">
+              <dt className="font-display text-4xl font-extrabold text-gradient">{s.value}</dt>
+              <dd className="mt-1 text-xs text-muted-foreground">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
+    </div>
+  </section>
+);
 
 export default About;

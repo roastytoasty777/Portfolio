@@ -1,74 +1,51 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+const navItems = [
+  { id: "projects", label: "Work" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "journey", label: "Journey" },
+  { id: "contact", label: "Contact" },
+];
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-
-      // Update active section based on scroll position
-      const sections = ["home", "about", "skills", "experience", "education", "projects", "contact"];
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            setActiveSection(section);
-            break;
-          }
-        }
+    const onScroll = () => {
+      let current = "";
+      for (const item of navItems) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top <= 200) current = item.id;
       }
+      setActive(current);
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
+  const go = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setOpen(false);
   };
 
-  const navItems = [
-    { id: "home", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "skills", label: "Skills" },
-    { id: "experience", label: "Experience" },
-    { id: "education", label: "Education" },
-    { id: "projects", label: "Projects" },
-    { id: "contact", label: "Contact" },
-  ];
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass-card shadow-lg py-4" : "bg-transparent py-6"
-      }`}
-    >
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        <button
-          onClick={() => scrollToSection("home")}
-          className="text-2xl font-bold text-gradient hover:scale-105 transition-transform"
-        >
-          MS
+    <nav className="fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2">
+      <div className="glass-card flex items-center justify-between rounded-full px-5 py-2.5">
+        <button onClick={() => go("home")} className="font-display text-lg font-extrabold">
+          MS<span className="text-primary">.</span>
         </button>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                activeSection === item.id ? "text-primary" : "text-muted-foreground"
+              onClick={() => go(item.id)}
+              className={`rounded-full px-4 py-1.5 text-sm transition-colors ${
+                active === item.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {item.label}
@@ -76,28 +53,19 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden text-foreground"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </Button>
+        <button className="md:hidden" aria-label="Menu" onClick={() => setOpen(!open)}>
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden glass-card mt-4 mx-4 p-4 rounded-lg animate-fade-in-up">
+      {open && (
+        <div className="glass-card animate-fade-in-up mt-2 flex flex-col rounded-3xl p-3 md:hidden">
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`block w-full text-left py-3 px-4 rounded-lg transition-colors ${
-                activeSection === item.id
-                  ? "bg-primary text-primary-foreground"
-                  : "hover:bg-muted text-foreground"
+              onClick={() => go(item.id)}
+              className={`rounded-2xl px-4 py-3 text-left ${
+                active === item.id ? "bg-primary text-primary-foreground" : "text-foreground"
               }`}
             >
               {item.label}

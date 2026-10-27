@@ -1,95 +1,52 @@
-import { Code2, Database, Palette, Globe, MessageSquare, TrendingUp } from "lucide-react";
+import Reveal from "./Reveal";
+import SpotlightCard from "./SpotlightCard";
 
-const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Programming",
-      icon: Code2,
-      color: "text-primary",
-      skills: ["Python", "Java", "C", "C++", "C#"],
-    },
-    {
-      title: "Web Development",
-      icon: Globe,
-      color: "text-secondary",
-      skills: ["HTML", "CSS", "JavaScript", "TypeScript", "PHP"],
-    },
-    {
-      title: "Databases",
-      icon: Database,
-      color: "text-accent",
-      skills: ["SQL", "MongoDB", "MySQL"],
-    },
-    {
-      title: "Frameworks & Tools",
-      icon: Palette,
-      color: "text-primary",
-      skills: ["Spring Boot", "JEE", "Angular", "Next.js", "Nest.js", "Django", "Adobe Photoshop", "Blender", "Unity"],
-    },
-    {
-      title: "Languages",
-      icon: MessageSquare,
-      color: "text-secondary",
-      skills: ["English - Fluent", "French - Fluent", "Arabic - Native"],
-    },
-    {
-      title: "Strengths",
-      icon: TrendingUp,
-      color: "text-accent",
-      skills: ["Team Player", "Fast Learner", "Adaptive", "Challenge-Oriented"],
-    },
-  ];
+const groups = [
+  { title: "Languages", wide: true, items: ["TypeScript", "JavaScript", "Python", "SQL", "Java (OOP)"] },
+  { title: "Backend", items: ["Node.js", "NestJS", "FastAPI", "REST + Swagger", "PostgreSQL", "Prisma", "SQLAlchemy", "Redis", "BullMQ"] },
+  { title: "Frontend", items: ["React", "Next.js", "Angular", "Tailwind CSS", "HTML / CSS"] },
+  { title: "AI and data", items: ["LLM APIs (Groq, OpenAI, Claude)", "Prompt design", "OCR", "Demand forecasting", "Python", "NumPy", "pandas", "Matplotlib", "SciPy", "scikit-image", "OpenCV", "Probability in Python", "Image processing in Python"] },
+  { title: "Security and DevOps", items: ["JWT", "OAuth 2.0", "RBAC", "Git / GitHub", "Docker", "Docker Compose"] },
+];
 
-  return (
-    <section id="skills" className="py-20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-accent/5" />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-gradient">Skills</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full" />
-        </div>
+const Skills = () => (
+  <section id="skills" className="py-28">
+    <div className="container mx-auto px-4">
+      <Reveal>
+        <p className="font-mono-label mb-3 text-primary">Skills</p>
+        <h2 className="font-display mb-14 max-w-3xl text-4xl font-extrabold md:text-5xl">What I work with.</h2>
+      </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {skillCategories.map((category, index) => {
-            const Icon = category.icon;
-            return (
-              <div
-                key={index}
-                className="glass-card p-6 rounded-2xl hover:scale-105 transition-transform animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className={`w-12 h-12 rounded-full bg-card flex items-center justify-center ${category.color}`}>
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-semibold">{category.title}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill, skillIndex) => (
-                    <span
-                      key={skillIndex}
-                      className={`px-3 py-1 rounded-full text-sm ${
-                        skillIndex % 3 === 0
-                          ? "bg-primary/20 text-primary"
-                          : skillIndex % 3 === 1
-                          ? "bg-secondary/20 text-secondary"
-                          : "bg-accent/20 text-accent"
-                      }`}
-                    >
-                      {skill}
-                    </span>
+      <div className="grid gap-6 md:grid-cols-2">
+        {groups.map((g, i) => (
+          <Reveal key={g.title} delay={i * 0.06} className={g.wide ? "md:col-span-2" : ""}>
+            <SpotlightCard className="h-full">
+              <div className="p-8">
+                <h3 className="font-display mb-5 text-2xl font-bold">{g.title}</h3>
+                <ul className="flex flex-wrap gap-2">
+                  {g.items.map((it) => (
+                    <li key={it} className="rounded-full border border-border bg-background/60 px-4 py-1.5 text-sm">
+                      {it}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-            );
-          })}
-        </div>
+            </SpotlightCard>
+          </Reveal>
+        ))}
       </div>
-    </section>
-  );
-};
+
+      <Reveal delay={0.1}>
+        <div className="mt-6 rounded-3xl border border-primary/40 bg-primary/5 p-8">
+          <p className="font-mono-label mb-2 text-primary">Learning now</p>
+          <p className="text-lg">
+            Python for AI engineering and data science: RAG, agents and model deployment, practiced through a
+            structured roadmap.
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+);
 
 export default Skills;

@@ -1,28 +1,35 @@
+import { MotionConfig } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
+import Projects from "@/components/Projects";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
-import Education from "@/components/Education";
-import Projects from "@/components/Projects";
+import Certifications from "@/components/Certifications";
+import Journey from "@/components/Journey";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import CursorGlow from "@/components/CursorGlow";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Education />
-        <Projects />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen overflow-x-clip">
+        <CursorGlow />
+        <Navbar />
+        <main>
+          <Hero />
+          <Marquee />
+          <Projects />
+          <About />
+          <Skills />
+          <Certifications />
+          <Journey />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </MotionConfig>
   );
 };
 
