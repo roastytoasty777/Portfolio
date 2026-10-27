@@ -64,7 +64,7 @@ const Contact = () => {
     {
       icon: MapPin,
       label: "Location",
-      value: "Sousse, Tunisia",
+      value: "Ras Jebel, Bizerte, Tunisia",
       href: "#",
       color: "text-accent",
     },
