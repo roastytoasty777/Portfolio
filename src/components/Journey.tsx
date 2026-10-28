@@ -1,7 +1,6 @@
 import Reveal from "./Reveal";
 
 const steps = [
-  { when: "Now", title: "QA Engineer Intern", where: "3LM SOLUTIONS", note: "Responsible for auditing the existing code base, then analysing and optimising it." },
   { when: "Feb to Jun 2026", title: "Full-Stack Developer Intern", where: "Duality Agency", note: "Built MetaPro end to end (NestJS back end, Next.js interface, LLM integration) in 7 Scrum sprints. Presented as my final-year project." },
   { when: "2026 to 2029", title: "Engineering Cycle, Computer Science", where: "TEK-UP University, Ariana", note: "Currently in progress." },
   { when: "Aug 2023 to now", title: "Tutor, Web Development and Python", where: "Remote", note: "Teaching programming fundamentals, web basics, PHP with SQL and Python data structures." },
