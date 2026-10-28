@@ -80,11 +80,11 @@ const Projects = () => (
         </h2>
       </Reveal>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {featured.map((p, i) => (
-          <Reveal key={p.title} delay={i * 0.1}>
+          <Reveal key={p.title} delay={i * 0.1} className="min-w-0">
             <SpotlightCard className="h-full">
-              <div className="flex h-full flex-col gap-6 p-8 md:p-10">
+              <div className="flex h-full flex-col gap-6 p-6 sm:p-8 md:p-10">
                 <img
                   src={p.image}
                   alt={p.imageAlt}
@@ -92,7 +92,7 @@ const Projects = () => (
                   className="aspect-video w-full rounded-2xl border border-border object-cover object-top"
                 />
                 <p className="font-mono-label text-muted-foreground">{p.tag}</p>
-                <h3 className="font-display text-6xl font-extrabold text-gradient md:text-7xl">{p.title}</h3>
+                <h3 className="font-display text-4xl font-extrabold text-gradient min-[400px]:text-5xl sm:text-6xl md:text-7xl">{p.title}</h3>
                 <p className="text-lg">{p.blurb}</p>
                 <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
                   {p.points.map((pt) => (
